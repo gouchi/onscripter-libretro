@@ -106,7 +106,6 @@ SOURCES_C += $(addprefix $(DEPS_DIR)/sdl/src/,\
 SOURCES_C += $(addprefix $(SDL_LIBRETRO_DIR)/, \
   audio.c events.c video.c thread.c timer.c \
 )
-LDFLAGS += -lpthread
 
 # sdl-image
 CFLAGS += -DSIZEOF_SIZE_T=__SIZEOF_SIZE_T__ -DLOAD_JPG
