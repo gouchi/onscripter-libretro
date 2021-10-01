@@ -164,9 +164,7 @@ void retro_reset(void)
 void retro_run(void)
 {
   input_poll_cb();
-  for (int i = 0; i < tinyco.context_count; ++i) {
-    SDL_libretro_co_yield();
-  }
+  SDL_libretro_co_yield();
 }
 
 size_t retro_serialize_size(void)
