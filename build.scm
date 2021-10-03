@@ -29,8 +29,6 @@
      (modify-phases %standard-phases
        (replace 'configure
          (lambda* (#:key inputs #:allow-other-keys)
-           (copy-recursively (assoc-ref inputs "sdl-ttf")
-                             "deps/sdl-ttf")
            (for-each
             (lambda (dep)
               (define destdir (string-append "deps/" dep))
@@ -39,7 +37,7 @@
                       "--strip-components=1" "-xvf"
                       (assoc-ref inputs dep)))
             '("bzip2" "freetype" "libogg" "libvorbis" "libjpeg-turbo"
-              "sdl" "sdl-image" "sdl-mixer" "onscripter"))
+              "sdl" "sdl-image" "sdl-mixer" "sdl-ttf" "onscripter"))
            (copy-recursively "deps/config/freetype"
                              "deps/freetype/include/freetype/config")
            (copy-recursively "deps/config/libjpeg-turbo"
@@ -63,17 +61,17 @@
      ("sdl" ,(package-source sdl))
      ("sdl-image" ,(package-source sdl-image))
      ("sdl-mixer" ,(package-source sdl-mixer))
+     ("sdl-ttf" ,(package-source sdl-ttf))
      ("onscripter" ,(origin
                      (method url-fetch)
                      (uri "http://onscripter.osdn.jp/onscripter-20200722.tar.gz")
                      (sha256
                       (base32
-                       "0pnkki59k26pqxv1lh0rdcryc2w477ag2vqnpx3dmqva6fng9r8j"))))
-     ("sdl-ttf" ,(git-checkout
-                  ;; XXX: Fixed TTF_RenderGlyph_Shaded
-                  (url "https://github.com/libsdl-org/SDL_ttf")
-                  (commit "e31d11a692e5b55e8e624ad766e4e44d655422c8")))))
-  (home-page "")
+                       "0pnkki59k26pqxv1lh0rdcryc2w477ag2vqnpx3dmqva6fng9r8j"))))))
+  (home-page "https://github.com/iyzsong/onscripter-libretro/")
   (synopsis "Libretro core for ONScripter")
-  (description "")
+  (description "ONScripter is a visual novel games engine compatible
+to NScripter, this package provides a libretro core allowing the
+ONScripter visual novel games to be played with libretro frontends
+such as RetroArch.")
   (license license:gpl3+))
