@@ -15,6 +15,17 @@
 #define HAVE_STRING_H 1
 #define HAVE_STDINT_H 1
 
+/* C library functions */
+#define HAVE_MALLOC
+#define HAVE_CALLOC
+#define HAVE_REALLOC
+#define HAVE_FREE
+#define HAVE_ALLOCA
+#define HAVE_MEMSET
+#define HAVE_MEMCPY
+#define HAVE_MEMMOVE
+#define HAVE_MEMCMP
+
 /* Enable various drivers */
 #define SDL_AUDIO_DRIVER_DUMMY 1
 #define SDL_CDROM_DISABLED 1

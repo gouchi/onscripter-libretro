@@ -21,4 +21,7 @@ Thanks them!
 
 
 To build, run: guix build -f build.scm
-or on Debian: ./get-deps-via-apt.sh; make -j4
+Or on Debian: ./get-deps-via-apt.sh; make -j4
+And for Android:
+  sed -i 's:ANDROID:XXX_ANDROID_XXX:g' deps/onscripter/*.{h,cpp}
+  cd jni; ndk-build APP_ABI='armeabi-v7a'

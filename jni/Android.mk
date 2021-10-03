@@ -4,6 +4,7 @@ CORE_DIR := $(LOCAL_PATH)/..
 include $(CORE_DIR)/Makefile.common
 
 include $(CLEAR_VARS)
+LOCAL_SHORT_COMMANDS := true
 LOCAL_MODULE    := retro
 LOCAL_SRC_FILES := $(SOURCES_C) $(SOURCES_CXX)
 LOCAL_CFLAGS    := $(CFLAGS)
