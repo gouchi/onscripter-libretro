@@ -108,7 +108,7 @@ SOURCES_C += $(addprefix $(SDL_LIBRETRO_DIR)/, \
 )
 
 # sdl-image
-CFLAGS += -DSIZEOF_SIZE_T=__SIZEOF_SIZE_T__ -DLOAD_JPG
+CFLAGS += -DSIZEOF_SIZE_T=__SIZEOF_SIZE_T__ -DLOAD_JPG -DLOAD_BMP
 SOURCES_C += $(filter-out %/showimage.c, $(wildcard $(DEPS_DIR)/sdl-image/*.c))
 
 # sdl-mixer
