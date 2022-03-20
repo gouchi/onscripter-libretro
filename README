@@ -18,9 +18,3 @@ This project is based on:
 - TinyCoroutine: https://github.com/soundsrc/tinycoroutine
 
 Thanks them!
-
-
-To build, run: guix build -f build.scm
-And for Android:
-  sed -i 's:ANDROID:XXX_ANDROID_XXX:g' deps/onscripter/*.{h,cpp}
-  cd jni; ndk-build APP_ABI='armeabi-v7a'

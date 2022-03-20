@@ -6,8 +6,10 @@ SDL_LIBRETRO_DIR = $(CORE_DIR)/sdl-libretro
 INCFLAGS := \
   -I$(LIBRETRO_COMM_DIR)/include \
   -I$(DEPS_DIR)/bzip2 \
+  -I$(DEPS_DIR)/zlib \
   -I$(DEPS_DIR)/freetype/include \
   -I$(DEPS_DIR)/libjpeg-turbo \
+  -I$(DEPS_DIR)/libpng \
   -I$(DEPS_DIR)/libogg/include \
   -I$(DEPS_DIR)/libvorbis/include \
   -I$(SDL_LIBRETRO_DIR) \
@@ -65,6 +67,20 @@ SOURCES_C += $(addprefix $(DEPS_DIR)/libjpeg-turbo/,\
   jsimd_none.c \
 )
 
+# zlib
+SOURCES_C += $(addprefix $(DEPS_DIR)/zlib/,\
+  adler32.c compress.c crc32.c deflate.c gzclose.c gzlib.c \
+  gzread.c gzwrite.c inflate.c infback.c inftrees.c inffast.c \
+  trees.c uncompr.c zutil.c \
+)
+
+# libpng
+SOURCES_C += $(addprefix $(DEPS_DIR)/libpng/,\
+  png.c pngerror.c pngget.c pngmem.c pngpread.c \
+  pngread.c pngrio.c pngrtran.c pngrutil.c \
+  pngset.c pngtrans.c pngwio.c pngwrite.c pngwtran.c pngwutil.c \
+)
+
 # libogg
 SOURCES_C += $(addprefix $(DEPS_DIR)/libogg/src/,\
   bitwise.c framing.c \
@@ -108,7 +124,7 @@ SOURCES_C += $(addprefix $(SDL_LIBRETRO_DIR)/, \
 )
 
 # sdl-image
-CFLAGS += -DSIZEOF_SIZE_T=__SIZEOF_SIZE_T__ -DLOAD_JPG -DLOAD_BMP
+CFLAGS += -DSIZEOF_SIZE_T=__SIZEOF_SIZE_T__ -DLOAD_JPG -DLOAD_BMP -DLOAD_PNG
 SOURCES_C += $(filter-out %/showimage.c, $(wildcard $(DEPS_DIR)/sdl-image/*.c))
 
 # sdl-mixer
