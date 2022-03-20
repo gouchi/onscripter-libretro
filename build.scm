@@ -67,10 +67,10 @@
      ("sdl-ttf" ,(package-source sdl-ttf))
      ("onscripter" ,(origin
                      (method url-fetch)
-                     (uri "http://onscripter.osdn.jp/onscripter-20200722.tar.gz")
+                     (uri "http://onscripter.osdn.jp/onscripter-20220123.tar.gz")
                      (sha256
                       (base32
-                       "0pnkki59k26pqxv1lh0rdcryc2w477ag2vqnpx3dmqva6fng9r8j"))))))
+                       "1jj8ni4c2xm9l07wxvxwnbdjx8y0v8wnp42k674wivhy8z1iv92x"))))))
   (home-page "https://github.com/iyzsong/onscripter-libretro/")
   (synopsis "Libretro core for ONScripter")
   (description "ONScripter is a visual novel games engine compatible
