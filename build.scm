@@ -31,11 +31,14 @@
          (lambda* (#:key inputs #:allow-other-keys)
            (for-each
             (lambda (dep)
-              (define destdir (string-append "deps/" dep))
-              (mkdir-p destdir)
+              (let ((destdir (string-append "deps/" dep))
+                    (src (assoc-ref inputs dep)))
+                (mkdir-p destdir)
+                (if (file-is-directory? src)
+                    (copy-recursively src destdir)
               (invoke "tar" "-C" destdir
                       "--strip-components=1" "-xvf"
-                      (assoc-ref inputs dep)))
+                      (assoc-ref inputs dep)))))
             '("bzip2" "freetype" "libogg" "libvorbis" "libjpeg-turbo"
               "sdl" "sdl-image" "sdl-mixer" "sdl-ttf" "onscripter"))
            (copy-recursively "deps/config/freetype"
