@@ -33,7 +33,6 @@ void SDL_libretro_video_refresh()
 {
   static SDL_Surface *screen = SDL_GetVideoSurface();
   video_cb(screen->pixels, screen->w, screen->h, screen->pitch);
-  SDL_libretro_co_yield();
 }
 
 static void fallback_log(enum retro_log_level level, const char *fmt, ...)
@@ -163,8 +162,9 @@ void retro_reset(void)
 
 void retro_run(void)
 {
-  input_poll_cb();
   SDL_libretro_co_yield();
+  input_poll_cb();
+  SDL_libretro_video_refresh();
 }
 
 size_t retro_serialize_size(void)
@@ -192,6 +192,7 @@ bool retro_load_game_special(unsigned game_type, const struct retro_game_info *i
 
 void retro_unload_game(void)
 {
+  SDL_Quit();
 }
 
 unsigned retro_get_region(void)

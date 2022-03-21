@@ -171,7 +171,6 @@ static void DUMMY_UnlockHWSurface(_THIS, SDL_Surface *surface)
 
 static void DUMMY_UpdateRects(_THIS, int numrects, SDL_Rect *rects)
 {
-  SDL_libretro_co_yield();
 }
 
 int DUMMY_SetColors(_THIS, int firstcolor, int ncolors, SDL_Color *colors)

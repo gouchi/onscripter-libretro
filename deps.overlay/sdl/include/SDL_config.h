@@ -26,13 +26,19 @@
 #define HAVE_MEMMOVE
 #define HAVE_MEMCMP
 
+/* Other functions */
+#define HAVE_SEM_TIMEDWAIT
+#define HAVE_CLOCK_GETTIME
+#define HAVE_NANOSLEEP
+
 /* Enable various drivers */
 #define SDL_AUDIO_DRIVER_DUMMY 1
 #define SDL_CDROM_DISABLED 1
 #define SDL_JOYSTICK_DISABLED 1
 #define SDL_LOADSO_DISABLED 1
 #define SDL_THREAD_PTHREAD 1
-#define SDL_TIMER_DUMMY 1
+#define SDL_TIMER_UNIX 1
 #define SDL_VIDEO_DRIVER_DUMMY 1
+
 
 #endif /* _SDL_config_h */

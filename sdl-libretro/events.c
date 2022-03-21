@@ -53,6 +53,7 @@ void DUMMY_PumpEvents(_THIS)
 {
   PumpKeyboardEvents();
   PumpMouseEvents();
+  SDL_libretro_co_yield();
 }
 
 void DUMMY_InitOSKeymap(_THIS)

@@ -73,7 +73,6 @@ static void DUMMYAUD_PlayAudio(_THIS)
   SDL_AudioSpec *spec = &this->spec;
   Sint16 *ptr=(Sint16*)this->hidden->mixbuf;
   SDL_libretro_audio_batch_cb(ptr, spec->samples);
-  SDL_libretro_video_refresh();
 }
 
 static Uint8 *DUMMYAUD_GetAudioBuf(_THIS)

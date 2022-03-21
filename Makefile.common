@@ -109,7 +109,9 @@ SOURCES_C += $(addprefix $(DEPS_DIR)/sdl/src/,\
   stdlib/SDL_getenv.c stdlib/SDL_iconv.c \
   stdlib/SDL_malloc.c stdlib/SDL_qsort.c \
   stdlib/SDL_stdlib.c stdlib/SDL_string.c \
-  thread/SDL_thread.c timer/SDL_timer.c \
+  thread/SDL_thread.c thread/generic/SDL_syscond.c thread/generic/SDL_sysmutex.c \
+  thread/pthread/SDL_syssem.c thread/pthread/SDL_systhread.c \
+  timer/SDL_timer.c timer/unix/SDL_systimer.c \
   video/SDL_blit_0.c video/SDL_blit_1.c video/SDL_blit_A.c \
   video/SDL_blit.c video/SDL_blit_N.c video/SDL_bmp.c video/SDL_cursor.c \
   video/SDL_gamma.c video/SDL_pixels.c video/SDL_RLEaccel.c \
@@ -120,7 +122,7 @@ SOURCES_C += $(addprefix $(DEPS_DIR)/sdl/src/,\
   loadso/dummy/SDL_sysloadso.c \
 )
 SOURCES_C += $(addprefix $(SDL_LIBRETRO_DIR)/, \
-  audio.c events.c video.c thread.c timer.c \
+  audio.c events.c video.c \
 )
 
 # sdl-image
