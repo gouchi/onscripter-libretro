@@ -12,6 +12,7 @@ INCFLAGS := \
   -I$(DEPS_DIR)/libpng \
   -I$(DEPS_DIR)/libogg/include \
   -I$(DEPS_DIR)/libvorbis/include \
+  -I$(DEPS_DIR)/libmad/ \
   -I$(SDL_LIBRETRO_DIR) \
   -I$(DEPS_DIR)/sdl/include \
   -I$(DEPS_DIR)/sdl-image \
@@ -95,6 +96,13 @@ SOURCES_C += $(addprefix $(DEPS_DIR)/libvorbis/lib/,\
   lookup.c bitrate.c vorbisfile.c \
 )
 
+# libmad
+CFLAGS += -DFPM_DEFAULT -DSIZEOF_INT=4
+SOURCES_C += $(addprefix $(DEPS_DIR)/libmad/,\
+  version.c fixed.c bit.c timer.c stream.c frame.c \
+  synth.c decoder.c layer12.c layer3.c huffman.c \
+)
+
 # sdl
 SOURCES_C += $(addprefix $(DEPS_DIR)/sdl/src/,\
   SDL.c SDL_error.c SDL_fatal.c \
@@ -130,7 +138,7 @@ CFLAGS += -DSIZEOF_SIZE_T=__SIZEOF_SIZE_T__ -DLOAD_JPG -DLOAD_BMP -DLOAD_PNG
 SOURCES_C += $(filter-out %/showimage.c, $(wildcard $(DEPS_DIR)/sdl-image/*.c))
 
 # sdl-mixer
-CFLAGS += -DOGG_MUSIC
+CFLAGS += -DOGG_MUSIC -DMP3_MAD_MUSIC
 SOURCES_C += $(addprefix $(DEPS_DIR)/sdl-mixer/,\
   mixer.c \
   music.c \
@@ -141,6 +149,7 @@ SOURCES_C += $(addprefix $(DEPS_DIR)/sdl-mixer/,\
   load_ogg.c \
   music_ogg.c \
   dynamic_ogg.c \
+  music_mad.c \
 )
 
 # sdl-ttf
