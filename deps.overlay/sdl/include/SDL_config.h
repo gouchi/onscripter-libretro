@@ -27,9 +27,9 @@
 #define HAVE_MEMCMP
 
 /* Other functions */
-#define HAVE_SEM_TIMEDWAIT
-#define HAVE_CLOCK_GETTIME
-#define HAVE_NANOSLEEP
+#define HAVE_SEM_TIMEDWAIT 1
+#define HAVE_CLOCK_GETTIME 1
+#define HAVE_NANOSLEEP 1
 
 /* Enable various drivers */
 #define SDL_AUDIO_DRIVER_DUMMY 1
