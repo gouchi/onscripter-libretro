@@ -117,7 +117,7 @@ SOURCES_C += $(addprefix $(DEPS_DIR)/sdl/src/,\
   stdlib/SDL_getenv.c stdlib/SDL_iconv.c \
   stdlib/SDL_malloc.c stdlib/SDL_qsort.c \
   stdlib/SDL_stdlib.c stdlib/SDL_string.c \
-  thread/SDL_thread.c thread/generic/SDL_syscond.c thread/generic/SDL_sysmutex.c \
+  thread/SDL_thread.c thread/pthread/SDL_syscond.c thread/pthread/SDL_sysmutex.c \
   thread/pthread/SDL_syssem.c thread/pthread/SDL_systhread.c \
   timer/SDL_timer.c timer/unix/SDL_systimer.c \
   video/SDL_blit_0.c video/SDL_blit_1.c video/SDL_blit_A.c \
