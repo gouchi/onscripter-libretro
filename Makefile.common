@@ -104,6 +104,7 @@ SOURCES_C += $(addprefix $(DEPS_DIR)/libmad/,\
 )
 
 # sdl
+LDFLAGS += -lpthread
 SOURCES_C += $(addprefix $(DEPS_DIR)/sdl/src/,\
   SDL.c SDL_error.c SDL_fatal.c \
   audio/SDL_audio.c audio/SDL_audiocvt.c audio/SDL_audiodev.c \
