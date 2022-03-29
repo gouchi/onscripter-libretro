@@ -41,5 +41,9 @@
 #define SDL_TIMER_UNIX 1
 #define SDL_VIDEO_DRIVER_DUMMY 1
 
+#ifdef ANDROID
+#define SDL_BLENDMODE_NONE 0
+#define SDL_SetSurfaceBlendMode(surface, blendMode) 0
+#endif
 
 #endif /* _SDL_config_h */

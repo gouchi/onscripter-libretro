@@ -209,3 +209,53 @@ size_t retro_get_memory_size(unsigned id)
 {
   return 0;
 }
+
+
+#ifdef ANDROID
+extern "C" {
+#undef fseek
+int fseek_ons(FILE *stream, long offset, int whence) {
+  return fseek(stream, offset, whence);
+}
+
+#undef ftell
+long ftell_ons(FILE *stream) {
+  return ftell(stream);
+}
+
+#undef fgetc
+int fgetc_ons(FILE *stream) {
+  return fgetc(stream);
+}
+
+#undef fgets
+char *fgets_ons(char *s, int size, FILE *stream) {
+  return fgets(s, size, stream);
+}
+
+#undef fread
+size_t fread_ons(void *ptr, size_t size, size_t nmemb, FILE *stream) {
+  return fread(ptr, size, nmemb, stream);
+}
+
+#undef fopen
+FILE *fopen_ons(const char *str, const char *mode) {
+  return fopen(str, mode);
+}
+
+#undef mkdir
+extern int mkdir(const char *pathname, mode_t mode);
+int mkdir_ons(const char *pathname, mode_t mode) {
+  return mkdir(pathname, mode);
+}
+
+void playVideoAndroid(const char *filename) {}
+int __android_log_print(int prio, const char *tag, const char *fmt, ...) {
+  va_list va;
+  va_start(va, fmt);
+  log_cb(RETRO_LOG_INFO, fmt, va);
+  va_end(va);
+  return 0;
+}
+}
+#endif

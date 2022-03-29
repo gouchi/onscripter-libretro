@@ -91,7 +91,7 @@ static void DUMMYAUD_CloseAudio(_THIS)
 
 static int DUMMYAUD_OpenAudio(_THIS, SDL_AudioSpec *spec)
 {
-  spec->samples = 44100 / 60;
+  spec->samples = 512;
   SDL_CalculateAudioSpec(spec);
   this->hidden->mixlen = spec->size;
   this->hidden->mixbuf = (Uint8 *)SDL_AllocAudioMem(this->hidden->mixlen);
