@@ -18,34 +18,53 @@ static void PumpKeyboardEvents(void)
   }
 }
 
+static Uint8 to_button(int16_t pressed)
+{
+  if (pressed == 1)
+    return SDL_BUTTON_LEFT;
+  if (pressed == 2)
+    return SDL_BUTTON_RIGHT;
+  return 0;
+}
+
 static void PumpMouseEvents(void)
 {
-  int16_t x = SDL_libretro_input_state_cb(0, RETRO_DEVICE_MOUSE, 0, RETRO_DEVICE_ID_MOUSE_X);
-  int16_t y = SDL_libretro_input_state_cb(0, RETRO_DEVICE_MOUSE, 0, RETRO_DEVICE_ID_MOUSE_Y);
-  if (x != 0 || y != 0)
-    SDL_PrivateMouseMotion(0, 1, x, y);
+  static Sint16 x = 0;
+  static Sint16 y = 0;
+  static Uint8 btn = 0;
+  static int16_t pressed = 0;
 
-  static uint16_t btn_left = 0;
-  static uint16_t btn_middle = 0;
-  static uint16_t btn_right = 0;
-  uint16_t state;
+  SDL_Surface *screen = SDL_GetVideoSurface();
+  int16_t _x = SDL_libretro_input_state_cb(0, RETRO_DEVICE_POINTER, 0, RETRO_DEVICE_ID_POINTER_X);
+  int16_t _y = SDL_libretro_input_state_cb(0, RETRO_DEVICE_POINTER, 0, RETRO_DEVICE_ID_POINTER_Y);
+  int16_t _pressed = 0;
 
-  state = SDL_libretro_input_state_cb(0, RETRO_DEVICE_MOUSE, 0, RETRO_DEVICE_ID_MOUSE_LEFT);
-  if (state != btn_left) {
-    btn_left = state;
-    SDL_PrivateMouseButton(state ? SDL_PRESSED : SDL_RELEASED, SDL_BUTTON_LEFT, 0, 0);
+  while (SDL_libretro_input_state_cb(0, RETRO_DEVICE_POINTER, _pressed, RETRO_DEVICE_ID_POINTER_PRESSED)) {
+    _pressed += 1;
   }
 
-  state = SDL_libretro_input_state_cb(0, RETRO_DEVICE_MOUSE, 0, RETRO_DEVICE_ID_MOUSE_MIDDLE);
-  if (state != btn_middle) {
-    btn_middle = state;
-    SDL_PrivateMouseButton(state ? SDL_PRESSED : SDL_RELEASED, SDL_BUTTON_MIDDLE, 0, 0);
+  if (SDL_libretro_input_state_cb(0, RETRO_DEVICE_MOUSE, 0, RETRO_DEVICE_ID_MOUSE_LEFT)) {
+    _pressed = 1;
+  }
+  if (SDL_libretro_input_state_cb(0, RETRO_DEVICE_MOUSE, 0, RETRO_DEVICE_ID_MOUSE_RIGHT)) {
+    _pressed = 2;
   }
 
-  state = SDL_libretro_input_state_cb(0, RETRO_DEVICE_MOUSE, 0, RETRO_DEVICE_ID_MOUSE_RIGHT);
-  if (state != btn_right) {
-    btn_right = state;
-    SDL_PrivateMouseButton(state ? SDL_PRESSED : SDL_RELEASED, SDL_BUTTON_RIGHT, 0, 0);
+  if (pressed) {
+    if (!_pressed) {
+      btn = to_button(pressed);
+      SDL_PrivateMouseButton(SDL_RELEASED, btn, x, y);
+      pressed = 0;
+    }
+  } else {
+    if (_pressed) {
+      x = screen->w * (_x + 0x7fff) / 0xffff;
+      y = screen->h * (_y + 0x7fff) / 0xffff;
+      btn = to_button(_pressed);
+      SDL_WarpMouse(x, y);
+      SDL_PrivateMouseButton(SDL_PRESSED, btn, 0, 0);
+      pressed = _pressed;
+    }
   }
 }
 

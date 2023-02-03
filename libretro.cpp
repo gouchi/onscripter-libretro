@@ -127,6 +127,7 @@ static void ons_main(void *unused)
     log_cb(RETRO_LOG_ERROR, "Failed to initialize ONScripter\n");
     return;
   }
+  SDL_ShowCursor(SDL_DISABLE);
   ons.executeLabel();
 }
 
