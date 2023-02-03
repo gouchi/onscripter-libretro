@@ -14,10 +14,10 @@
 (define onscripter-source
   (origin
     (method url-fetch)
-    (uri "http://onscripter.osdn.jp/onscripter-20220123.tar.gz")
+    (uri "http://onscripter.osdn.jp/onscripter-20220816.tar.gz")
     (sha256
      (base32
-      "1jj8ni4c2xm9l07wxvxwnbdjx8y0v8wnp42k674wivhy8z1iv92x"))))
+      "1mfm8a3ndadlb7397lmigvz303h6nhmhx8z620dfjxqpll0a9gp2"))))
 
 
 (computed-file
