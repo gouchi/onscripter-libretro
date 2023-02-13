@@ -18,7 +18,6 @@ INCFLAGS := \
   -I$(DEPS_DIR)/sdl-image \
   -I$(DEPS_DIR)/sdl-mixer \
   -I$(DEPS_DIR)/sdl-ttf \
-  -I$(DEPS_DIR)/tinycoroutine \
   -I$(CORE_DIR) \
   -I$(DEPS_DIR)
 
@@ -164,10 +163,8 @@ SOURCES_C += $(addprefix $(LIBRETRO_COMM_DIR)/,\
   string/stdstring.c \
   time/rtime.c \
   file/file_path.c \
+  libco/libco.c \
 )
-
-# tinycoroutine
-SOURCES_C += $(DEPS_DIR)/tinycoroutine/tinycoroutine.c
 
 # onscripter
 SOURCES_CXX := $(CORE_DIR)/libretro.cpp

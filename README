@@ -18,6 +18,5 @@ This project is based on:
 - ONScripter: http://onscripter.osdn.jp/onscripter.html
 - sdl-libretro: https://github.com/libretro/sdl-libretro
 - libretro-common: https://github.com/libretro/libretro-common
-- TinyCoroutine: https://github.com/soundsrc/tinycoroutine
 
 Thanks them!

@@ -1,7 +1,7 @@
 #include <SDL_libretro.h>
 #include <retro_miscellaneous.h>
 #include <file/file_path.h>
-#include <tinycoroutine.h>
+#include <libco.h>
 #include <onscripter/ONScripter.h>
 
 retro_usec_t SDL_libretro_now = 0;
@@ -14,19 +14,13 @@ static retro_input_poll_t input_poll_cb;
 
 static retro_log_printf_t log_cb = fallback_log;
 static retro_environment_t environ_cb;
-static struct tinyco_t tinyco;
 static ONScripter ons;
-static uint8_t ons_stack[64*1024];
+static cothread_t retro_ct, ons_ct;
 
-
-void SDL_libretro_co_spawn(void (*fn)(void *), void *data, void *stack, size_t stack_size)
-{
-  tinyco_spawn(&tinyco, fn, data, stack, stack_size);
-}
 
 void SDL_libretro_co_yield(void)
 {
-  tinyco_yield(&tinyco);
+  co_switch(retro_ct);
 }
 
 void SDL_libretro_video_refresh()
@@ -113,15 +107,7 @@ void retro_get_system_av_info(struct retro_system_av_info *info)
   info->timing.sample_rate = 44100.0;
 }
 
-void retro_init(void)
-{
-  enum retro_pixel_format pixfmt = RETRO_PIXEL_FORMAT_XRGB8888;
-  environ_cb(RETRO_ENVIRONMENT_SET_PIXEL_FORMAT, &pixfmt);
-
-  tinyco_init(&tinyco, NULL, NULL);
-}
-
-static void ons_main(void *unused)
+static void ons_main(void)
 {
   if (ons.init()) {
     log_cb(RETRO_LOG_ERROR, "Failed to initialize ONScripter\n");
@@ -129,6 +115,14 @@ static void ons_main(void *unused)
   }
   SDL_ShowCursor(SDL_DISABLE);
   ons.executeLabel();
+}
+
+void retro_init(void)
+{
+  enum retro_pixel_format pixfmt = RETRO_PIXEL_FORMAT_XRGB8888;
+  environ_cb(RETRO_ENVIRONMENT_SET_PIXEL_FORMAT, &pixfmt);
+  retro_ct = co_active();
+  ons_ct = co_create(65536*8, ons_main);
 }
 
 bool retro_load_game(const struct retro_game_info *game)
@@ -143,8 +137,6 @@ bool retro_load_game(const struct retro_game_info *game)
   if (ons.openScript() != 0) {
     return false;
   }
-
-  SDL_libretro_co_spawn(ons_main, NULL, ons_stack, sizeof(ons_stack));
   return true;
 }
 
@@ -163,7 +155,7 @@ void retro_reset(void)
 
 void retro_run(void)
 {
-  SDL_libretro_co_yield();
+  co_switch(ons_ct);
   input_poll_cb();
   SDL_libretro_video_refresh();
 }
