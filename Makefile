@@ -126,7 +126,7 @@ endif
 
 include Makefile.common
 
-OBJECTS := $(SOURCES_C:.c=.o) $(SOURCES_CXX:.cpp=.o)
+OBJECTS := $(SOURCES_C:.c=.o) $(SOURCES_CXX:.cpp=.o) $(SOURCES_S:.S=.o)
 
 CFLAGS   += -Wall -D__LIBRETRO__ $(fpic)
 CXXFLAGS += -Wall -D__LIBRETRO__ $(fpic)
