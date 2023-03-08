@@ -1,5 +1,5 @@
-Libretro core for ONScripter
---------------------------------------------------------------------------------
+## About Libretro core for ONScripter
+
 ONScripter is a visual novel games engine compatible to NScripter,
 this project provides a libretro core allowing the ONScripter visual
 novel games to be played with libretro frontends such as RetroArch.
@@ -20,3 +20,12 @@ This project is based on:
 - libretro-common: https://github.com/libretro/libretro-common
 
 Thanks them!
+
+## Building
+
+### Linux
+
+    git clone --recursive https://github.com/iyzsong/onscripter-libretro
+    cd onscripter-libretro
+    ./update-deps.sh
+    make
